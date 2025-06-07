@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -32,6 +33,14 @@ export default {
 					DEFAULT: 'hsl(var(--secondary))',
 					foreground: 'hsl(var(--secondary-foreground))'
 				},
+				success: {
+					DEFAULT: 'hsl(var(--success))',
+					foreground: 'hsl(var(--success-foreground))'
+				},
+				warning: {
+					DEFAULT: 'hsl(var(--warning))',
+					foreground: 'hsl(var(--warning-foreground))'
+				},
 				destructive: {
 					DEFAULT: 'hsl(var(--destructive))',
 					foreground: 'hsl(var(--destructive-foreground))'
@@ -61,7 +70,13 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+				// Jobz.mn brand colors
+				'electric-blue': 'hsl(var(--electric-blue))',
+				'vibrant-green': 'hsl(var(--vibrant-green))',
+				'charcoal': 'hsl(var(--charcoal))',
+				'light-gray': 'hsl(var(--light-gray))',
+				'warning-orange': 'hsl(var(--warning-orange))'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -84,11 +99,42 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'pulse-glow': {
+					'0%, 100%': {
+						boxShadow: '0 0 0 0 rgba(0, 102, 255, 0.4)'
+					},
+					'50%': {
+						boxShadow: '0 0 0 10px rgba(0, 102, 255, 0)'
+					}
+				},
+				'counter-update': {
+					'0%': { 
+						transform: 'translateY(-10px)', 
+						opacity: '0' 
+					},
+					'100%': { 
+						transform: 'translateY(0)', 
+						opacity: '1' 
+					}
+				},
+				'slide-up': {
+					'0%': {
+						transform: 'translateY(100%)',
+						opacity: '0'
+					},
+					'100%': {
+						transform: 'translateY(0)',
+						opacity: '1'
+					}
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'pulse-glow': 'pulse-glow 2s infinite',
+				'counter-update': 'counter-update 0.3s ease-out',
+				'slide-up': 'slide-up 0.3s ease-out'
 			}
 		}
 	},
