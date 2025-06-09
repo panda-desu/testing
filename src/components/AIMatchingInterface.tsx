@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
+import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
 import { Bot, Users, MapPin, DollarSign, Building2, Zap } from 'lucide-react';
 
 interface Company {
@@ -17,8 +18,10 @@ interface Company {
   salary: number;
   district: string;
   industry: string;
+  position: string;
   aiScore: number;
   negotiating: boolean;
+  isActive: boolean;
 }
 
 const AIMatchingInterface = () => {
@@ -36,6 +39,7 @@ const AIMatchingInterface = () => {
   useEffect(() => {
     const districts = ['Sukhbaatar', 'Khan-Uul', 'Bayanzurkh', 'Songino Khairkhan', 'Chingeltei'];
     const industries = ['Tech', 'Finance', 'Healthcare', 'Education', 'Retail'];
+    const positions = ['Software Engineer', 'Data Analyst', 'Marketing Manager', 'Sales Representative', 'Project Manager', 'Designer', 'Account Manager', 'Business Analyst'];
     const companyNames = [
       'APU Mongolia', 'MCSI', 'GS25', 'Teso Life', 'Unitel', 'Khan Bank',
       'TDB Bank', 'Mongolian Airlines', 'Energy Resources', 'Sky Shopping',
@@ -46,15 +50,17 @@ const AIMatchingInterface = () => {
     const generatedCompanies: Company[] = Array.from({ length: 120 }, (_, i) => ({
       id: `company-${i}`,
       name: companyNames[i % companyNames.length],
-      x: Math.random() * 800,
-      y: Math.random() * 400,
+      x: Math.random() * 750 + 25,
+      y: Math.random() * 350 + 25,
       color: `hsl(${Math.random() * 360}, 70%, 60%)`,
       size: Math.random() * 8 + 4,
       salary: Math.floor(Math.random() * 3000000) + 1000000,
       district: districts[Math.floor(Math.random() * districts.length)],
       industry: industries[Math.floor(Math.random() * industries.length)],
+      position: positions[Math.floor(Math.random() * positions.length)],
       aiScore: 0,
-      negotiating: false
+      negotiating: false,
+      isActive: false
     }));
 
     setCompanies(generatedCompanies);
@@ -67,8 +73,8 @@ const AIMatchingInterface = () => {
     setAiMessages([]);
     setMatchedCompanies([]);
 
-    // Reset all companies
-    setCompanies(prev => prev.map(c => ({ ...c, aiScore: 0, negotiating: false })));
+    // Reset all companies to inactive state
+    setCompanies(prev => prev.map(c => ({ ...c, aiScore: 0, negotiating: false, isActive: false })));
 
     // Simulate AI agent conversations
     const messages = [
@@ -96,7 +102,8 @@ const AIMatchingInterface = () => {
       const scored = filtered.map(c => ({
         ...c,
         aiScore: Math.random() * 100,
-        negotiating: true
+        negotiating: true,
+        isActive: true
       }));
 
       setCompanies(prev => prev.map(c => {
@@ -118,30 +125,30 @@ const AIMatchingInterface = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-charcoal via-gray-900 to-charcoal text-white">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 text-charcoal">
       <div className="max-w-7xl mx-auto p-6">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold mb-4 text-electric-blue">
+          <h1 className="text-4xl font-bold mb-4 text-charcoal">
             AI-Powered Job Matching
           </h1>
-          <p className="text-xl text-gray-300">
+          <p className="text-xl text-gray-600">
             Your AI agent negotiates with company AI agents in real-time
           </p>
         </div>
 
         {/* Preferences Panel */}
-        <Card className="mb-8 bg-gray-800/50 border-gray-700">
+        <Card className="mb-8 bg-white/90 border-gray-200 shadow-lg">
           <CardContent className="p-6">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
               <div>
-                <label className="block text-sm font-medium mb-2 text-gray-300">
+                <label className="block text-sm font-medium mb-2 text-gray-700">
                   <MapPin className="inline w-4 h-4 mr-1" />
                   Preferred District
                 </label>
                 <Select value={preferences.district} onValueChange={(value) => 
                   setPreferences(prev => ({ ...prev, district: value }))}>
-                  <SelectTrigger className="bg-gray-700 border-gray-600">
+                  <SelectTrigger className="bg-white border-gray-300">
                     <SelectValue placeholder="Select district" />
                   </SelectTrigger>
                   <SelectContent>
@@ -155,7 +162,7 @@ const AIMatchingInterface = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-2 text-gray-300">
+                <label className="block text-sm font-medium mb-2 text-gray-700">
                   <DollarSign className="inline w-4 h-4 mr-1" />
                   Minimum Salary (₮)
                 </label>
@@ -164,18 +171,18 @@ const AIMatchingInterface = () => {
                   placeholder="3000000"
                   value={preferences.minSalary}
                   onChange={(e) => setPreferences(prev => ({ ...prev, minSalary: e.target.value }))}
-                  className="bg-gray-700 border-gray-600"
+                  className="bg-white border-gray-300"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-2 text-gray-300">
+                <label className="block text-sm font-medium mb-2 text-gray-700">
                   <Building2 className="inline w-4 h-4 mr-1" />
                   Industry (Optional)
                 </label>
                 <Select value={preferences.industry} onValueChange={(value) => 
                   setPreferences(prev => ({ ...prev, industry: value }))}>
-                  <SelectTrigger className="bg-gray-700 border-gray-600">
+                  <SelectTrigger className="bg-white border-gray-300">
                     <SelectValue placeholder="Any industry" />
                   </SelectTrigger>
                   <SelectContent>
@@ -212,49 +219,88 @@ const AIMatchingInterface = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Visualization */}
           <div className="lg:col-span-2">
-            <Card className="bg-gray-900/50 border-gray-700">
+            <Card className="bg-white/90 border-gray-200 shadow-lg">
               <CardContent className="p-6">
-                <h3 className="text-xl font-semibold mb-4 text-center">
+                <h3 className="text-xl font-semibold mb-4 text-center text-charcoal">
                   Real-Time Company Network
-                  <Badge className="ml-2 bg-vibrant-green">{companies.length} companies</Badge>
+                  <Badge className="ml-2 bg-vibrant-green text-white">{companies.length} companies</Badge>
                 </h3>
                 
-                <div className="relative bg-black rounded-lg overflow-hidden" style={{ height: '500px' }}>
+                <div className="relative bg-gray-900 rounded-lg overflow-hidden" style={{ height: '500px' }}>
                   <svg width="100%" height="100%" className="absolute inset-0">
                     {companies.map((company) => (
-                      <g key={company.id}>
-                        <circle
-                          cx={company.x}
-                          cy={company.y}
-                          r={company.size}
-                          fill={company.color}
-                          opacity={company.negotiating ? 0.9 : 0.6}
-                          className={`transition-all duration-300 ${
-                            company.negotiating ? 'animate-pulse' : ''
-                          }`}
-                          style={{
-                            filter: company.aiScore > 70 ? 'drop-shadow(0 0 10px #00CC66)' : 
-                                   company.aiScore > 40 ? 'drop-shadow(0 0 8px #0066FF)' : 'none'
-                          }}
-                        />
-                        {company.aiScore > 0 && (
-                          <text
-                            x={company.x}
-                            y={company.y - company.size - 5}
-                            textAnchor="middle"
-                            fontSize="10"
-                            fill="#fff"
-                            className="font-bold"
-                          >
-                            {Math.round(company.aiScore)}%
-                          </text>
-                        )}
-                      </g>
+                      <HoverCard key={company.id}>
+                        <HoverCardTrigger asChild>
+                          <g className="cursor-pointer">
+                            <circle
+                              cx={company.x}
+                              cy={company.y}
+                              r={company.size}
+                              fill={company.isActive ? company.color : '#6B7280'}
+                              opacity={company.negotiating ? 0.9 : company.isActive ? 0.7 : 0.4}
+                              className={`transition-all duration-500 ${
+                                company.negotiating ? 'animate-pulse' : ''
+                              }`}
+                              style={{
+                                filter: company.aiScore > 70 ? 'drop-shadow(0 0 10px #00CC66)' : 
+                                       company.aiScore > 40 ? 'drop-shadow(0 0 8px #0066FF)' : 'none'
+                              }}
+                            />
+                            {company.aiScore > 0 && (
+                              <text
+                                x={company.x}
+                                y={company.y - company.size - 5}
+                                textAnchor="middle"
+                                fontSize="10"
+                                fill="#fff"
+                                className="font-bold"
+                              >
+                                {Math.round(company.aiScore)}%
+                              </text>
+                            )}
+                          </g>
+                        </HoverCardTrigger>
+                        <HoverCardContent className="w-80 bg-white border-gray-200 shadow-xl">
+                          <div className="space-y-2">
+                            <h4 className="text-sm font-semibold text-charcoal">{company.name}</h4>
+                            <div className="text-xs text-gray-600 space-y-1">
+                              <div className="flex items-center gap-2">
+                                <Building2 className="w-3 h-3" />
+                                <span>{company.position}</span>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <MapPin className="w-3 h-3" />
+                                <span>{company.district}</span>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <DollarSign className="w-3 h-3" />
+                                <span>₮{company.salary.toLocaleString()}</span>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <span className="text-xs">🏢</span>
+                                <span>{company.industry}</span>
+                              </div>
+                              {company.aiScore > 0 && (
+                                <div className="flex items-center gap-2 mt-2">
+                                  <Badge 
+                                    className={`text-xs ${
+                                      company.aiScore > 70 ? 'bg-vibrant-green' : 
+                                      company.aiScore > 40 ? 'bg-electric-blue' : 'bg-gray-500'
+                                    } text-white`}
+                                  >
+                                    {Math.round(company.aiScore)}% match
+                                  </Badge>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        </HoverCardContent>
+                      </HoverCard>
                     ))}
                   </svg>
 
                   {/* Legend */}
-                  <div className="absolute bottom-4 left-4 bg-gray-800/90 rounded-lg p-3 text-xs">
+                  <div className="absolute bottom-4 left-4 bg-black/80 rounded-lg p-3 text-xs text-white">
                     <div className="flex items-center gap-2 mb-1">
                       <div className="w-3 h-3 rounded-full bg-vibrant-green"></div>
                       <span>High Match (70%+)</span>
@@ -265,7 +311,7 @@ const AIMatchingInterface = () => {
                     </div>
                     <div className="flex items-center gap-2">
                       <div className="w-3 h-3 rounded-full bg-gray-500"></div>
-                      <span>No Match</span>
+                      <span>Inactive</span>
                     </div>
                   </div>
                 </div>
@@ -276,15 +322,15 @@ const AIMatchingInterface = () => {
           {/* AI Messages & Results */}
           <div className="space-y-6">
             {/* AI Messages */}
-            <Card className="bg-gray-800/50 border-gray-700">
+            <Card className="bg-white/90 border-gray-200 shadow-lg">
               <CardContent className="p-4">
-                <h4 className="font-semibold mb-3 flex items-center">
+                <h4 className="font-semibold mb-3 flex items-center text-charcoal">
                   <Bot className="w-4 h-4 mr-2 text-electric-blue" />
                   AI Agent Status
                 </h4>
                 <div className="space-y-2 max-h-40 overflow-y-auto">
                   {aiMessages.map((message, i) => (
-                    <div key={i} className="text-sm text-gray-300 animate-slide-up">
+                    <div key={i} className="text-sm text-gray-600 animate-slide-up">
                       {message}
                     </div>
                   ))}
@@ -294,31 +340,32 @@ const AIMatchingInterface = () => {
 
             {/* Matched Companies */}
             {matchedCompanies.length > 0 && (
-              <Card className="bg-gray-800/50 border-gray-700">
+              <Card className="bg-white/90 border-gray-200 shadow-lg">
                 <CardContent className="p-4">
-                  <h4 className="font-semibold mb-3 flex items-center">
+                  <h4 className="font-semibold mb-3 flex items-center text-charcoal">
                     <Users className="w-4 h-4 mr-2 text-vibrant-green" />
                     AI-Matched Companies
                   </h4>
                   <div className="space-y-3">
                     {matchedCompanies.map((company) => (
-                      <div key={company.id} className="bg-gray-700/50 rounded-lg p-3">
+                      <div key={company.id} className="bg-gray-50 rounded-lg p-3 border border-gray-200">
                         <div className="flex justify-between items-start mb-2">
-                          <h5 className="font-medium text-sm">{company.name}</h5>
+                          <h5 className="font-medium text-sm text-charcoal">{company.name}</h5>
                           <Badge 
-                            className={`text-xs ${
+                            className={`text-xs text-white ${
                               company.aiScore > 70 ? 'bg-vibrant-green' : 'bg-electric-blue'
                             }`}
                           >
                             {Math.round(company.aiScore)}% match
                           </Badge>
                         </div>
-                        <div className="text-xs text-gray-400 space-y-1">
+                        <div className="text-xs text-gray-600 space-y-1">
+                          <div>💼 {company.position}</div>
                           <div>📍 {company.district}</div>
                           <div>💰 ₮{company.salary.toLocaleString()}</div>
                           <div>🏢 {company.industry}</div>
                         </div>
-                        <Button size="sm" className="w-full mt-2 bg-electric-blue hover:bg-electric-blue/90">
+                        <Button size="sm" className="w-full mt-2 bg-electric-blue hover:bg-electric-blue/90 text-white">
                           Interview Now
                         </Button>
                       </div>
