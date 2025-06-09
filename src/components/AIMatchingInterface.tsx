@@ -24,6 +24,16 @@ interface Company {
   isActive: boolean;
 }
 
+interface InfoPacket {
+  id: string;
+  x: number;
+  y: number;
+  targetX: number;
+  targetY: number;
+  progress: number;
+  active: boolean;
+}
+
 const AIMatchingInterface = () => {
   const [isMatching, setIsMatching] = useState(false);
   const [preferences, setPreferences] = useState({
@@ -34,6 +44,10 @@ const AIMatchingInterface = () => {
   const [companies, setCompanies] = useState<Company[]>([]);
   const [matchedCompanies, setMatchedCompanies] = useState<Company[]>([]);
   const [aiMessages, setAiMessages] = useState<string[]>([]);
+  const [infoPackets, setInfoPackets] = useState<InfoPacket[]>([]);
+
+  const centerX = 375; // Center of the visualization
+  const centerY = 250;
 
   // Generate random companies on mount
   useEffect(() => {
@@ -47,24 +61,89 @@ const AIMatchingInterface = () => {
       'UB City', 'Shangri-La', 'Blue Sky Hotel', 'Nomadic Travel'
     ];
 
-    const generatedCompanies: Company[] = Array.from({ length: 120 }, (_, i) => ({
-      id: `company-${i}`,
-      name: companyNames[i % companyNames.length],
-      x: Math.random() * 750 + 25,
-      y: Math.random() * 350 + 25,
-      color: `hsl(${Math.random() * 360}, 70%, 60%)`,
-      size: Math.random() * 8 + 4,
-      salary: Math.floor(Math.random() * 3000000) + 1000000,
-      district: districts[Math.floor(Math.random() * districts.length)],
-      industry: industries[Math.floor(Math.random() * industries.length)],
-      position: positions[Math.floor(Math.random() * positions.length)],
-      aiScore: 0,
-      negotiating: false,
-      isActive: false
-    }));
+    const generatedCompanies: Company[] = Array.from({ length: 120 }, (_, i) => {
+      // Ensure companies are not too close to center
+      let x, y;
+      do {
+        x = Math.random() * 750 + 25;
+        y = Math.random() * 350 + 25;
+      } while (Math.sqrt((x - centerX) ** 2 + (y - centerY) ** 2) < 80);
+
+      return {
+        id: `company-${i}`,
+        name: companyNames[i % companyNames.length],
+        x,
+        y,
+        color: `hsl(${Math.random() * 360}, 70%, 60%)`,
+        size: Math.random() * 8 + 4,
+        salary: Math.floor(Math.random() * 3000000) + 1000000,
+        district: districts[Math.floor(Math.random() * districts.length)],
+        industry: industries[Math.floor(Math.random() * industries.length)],
+        position: positions[Math.floor(Math.random() * positions.length)],
+        aiScore: 0,
+        negotiating: false,
+        isActive: false
+      };
+    });
 
     setCompanies(generatedCompanies);
   }, []);
+
+  // Generate info packets during matching
+  useEffect(() => {
+    if (!isMatching) return;
+
+    const packetInterval = setInterval(() => {
+      // Select random companies to send packets to
+      const activeCompanies = companies.filter(c => c.isActive);
+      const targetCompany = activeCompanies[Math.floor(Math.random() * activeCompanies.length)];
+      
+      if (targetCompany) {
+        const newPacket: InfoPacket = {
+          id: `packet-${Date.now()}-${Math.random()}`,
+          x: centerX,
+          y: centerY,
+          targetX: targetCompany.x,
+          targetY: targetCompany.y,
+          progress: 0,
+          active: true
+        };
+
+        setInfoPackets(prev => [...prev, newPacket]);
+      }
+    }, 200); // Create new packet every 200ms
+
+    return () => clearInterval(packetInterval);
+  }, [isMatching, companies]);
+
+  // Animate info packets
+  useEffect(() => {
+    if (infoPackets.length === 0) return;
+
+    const animationInterval = setInterval(() => {
+      setInfoPackets(prev => prev.map(packet => {
+        if (!packet.active) return packet;
+
+        const newProgress = packet.progress + 0.02; // Speed of packet movement
+        
+        if (newProgress >= 1) {
+          return { ...packet, active: false };
+        }
+
+        const currentX = packet.x + (packet.targetX - packet.x) * newProgress;
+        const currentY = packet.y + (packet.targetY - packet.y) * newProgress;
+
+        return {
+          ...packet,
+          x: currentX,
+          y: currentY,
+          progress: newProgress
+        };
+      }).filter(packet => packet.active || packet.progress < 1.1)); // Remove old packets
+    }, 16); // ~60fps
+
+    return () => clearInterval(animationInterval);
+  }, [infoPackets]);
 
   const startAIMatching = async () => {
     if (!preferences.district || !preferences.minSalary) return;
@@ -72,6 +151,7 @@ const AIMatchingInterface = () => {
     setIsMatching(true);
     setAiMessages([]);
     setMatchedCompanies([]);
+    setInfoPackets([]);
 
     // Reset all companies to inactive state
     setCompanies(prev => prev.map(c => ({ ...c, aiScore: 0, negotiating: false, isActive: false })));
@@ -228,6 +308,44 @@ const AIMatchingInterface = () => {
                 
                 <div className="relative bg-gray-900 rounded-lg overflow-hidden" style={{ height: '500px' }}>
                   <svg width="100%" height="100%" className="absolute inset-0">
+                    {/* Person dot in center */}
+                    <circle
+                      cx={centerX}
+                      cy={centerY}
+                      r="15"
+                      fill="#0066FF"
+                      stroke="#FFFFFF"
+                      strokeWidth="3"
+                      className="drop-shadow-lg"
+                    />
+                    <text
+                      x={centerX}
+                      y={centerY + 5}
+                      textAnchor="middle"
+                      fontSize="14"
+                      fill="#FFFFFF"
+                      fontWeight="bold"
+                    >
+                      YOU
+                    </text>
+
+                    {/* Info packets */}
+                    {infoPackets.map((packet) => (
+                      <circle
+                        key={packet.id}
+                        cx={packet.x}
+                        cy={packet.y}
+                        r="3"
+                        fill="#FFD700"
+                        className="animate-pulse"
+                        style={{
+                          filter: 'drop-shadow(0 0 6px #FFD700)',
+                          opacity: 1 - packet.progress * 0.5
+                        }}
+                      />
+                    ))}
+
+                    {/* Company dots */}
                     {companies.map((company) => (
                       <HoverCard key={company.id}>
                         <HoverCardTrigger asChild>
@@ -301,6 +419,14 @@ const AIMatchingInterface = () => {
 
                   {/* Legend */}
                   <div className="absolute bottom-4 left-4 bg-black/80 rounded-lg p-3 text-xs text-white">
+                    <div className="flex items-center gap-2 mb-1">
+                      <div className="w-3 h-3 rounded-full bg-electric-blue border border-white"></div>
+                      <span>You (Candidate)</span>
+                    </div>
+                    <div className="flex items-center gap-2 mb-1">
+                      <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
+                      <span>Info Packets</span>
+                    </div>
                     <div className="flex items-center gap-2 mb-1">
                       <div className="w-3 h-3 rounded-full bg-vibrant-green"></div>
                       <span>High Match (70%+)</span>
