@@ -1,8 +1,10 @@
 
-import { Button } from '@/components/ui/button';
+import { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Clock, MapPin, Users, TrendingUp } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { MapPin, DollarSign, Clock, Users, Zap, Video } from 'lucide-react';
+import JobDetailsModal from './JobDetailsModal';
 
 interface JobCardProps {
   id: string;
@@ -15,109 +17,95 @@ interface JobCardProps {
   interviewAvailable: boolean;
   applicants: number;
   posted: string;
-  logo?: string;
   urgent?: boolean;
 }
 
 const JobCard = ({ 
-  id, 
-  title, 
-  company, 
-  salary, 
-  location, 
-  type, 
-  tags, 
-  interviewAvailable, 
-  applicants, 
-  posted,
-  logo,
-  urgent = false
+  id, title, company, salary, location, type, tags, 
+  interviewAvailable, applicants, posted, urgent 
 }: JobCardProps) => {
+  const [showDetails, setShowDetails] = useState(false);
+
+  const jobData = {
+    id, title, company, salary, location, type, tags, applicants, posted, urgent
+  };
+
   return (
-    <Card className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-0 gradient-card backdrop-blur-sm">
-      <CardContent className="p-6">
-        <div className="flex items-start justify-between mb-4">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-electric-blue/10 rounded-xl flex items-center justify-center">
-              {logo ? (
-                <img src={logo} alt={company} className="w-8 h-8 rounded" />
-              ) : (
-                <span className="text-electric-blue font-bold text-lg">
-                  {company.charAt(0)}
-                </span>
-              )}
-            </div>
-            <div>
-              <h3 className="font-semibold text-lg text-charcoal group-hover:text-electric-blue transition-colors">
-                {title}
-              </h3>
-              <p className="text-muted-foreground">{company}</p>
-            </div>
-          </div>
+    <>
+      <Card className="bg-[#2f3136] border-gray-700 hover:bg-[#32363b] transition-all duration-200 group">
+        <CardContent className="p-6">
           {urgent && (
-            <Badge className="bg-warning-orange text-white animate-pulse">
-              Urgent
+            <Badge className="bg-red-500 text-white mb-3 animate-pulse">
+              <Zap className="w-3 h-3 mr-1" />
+              URGENT
             </Badge>
           )}
-        </div>
+          
+          <div className="mb-4">
+            <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-[#404EED] transition-colors">
+              {title}
+            </h3>
+            <p className="text-gray-300 font-medium">{company}</p>
+          </div>
 
-        <div className="space-y-3 mb-4">
-          <div className="flex items-center gap-4 text-sm text-muted-foreground">
-            <div className="flex items-center gap-1">
-              <MapPin className="w-4 h-4" />
+          <div className="space-y-2 mb-4">
+            <div className="flex items-center text-gray-400 text-sm">
+              <DollarSign className="w-4 h-4 mr-2" />
+              <span>{salary}</span>
+            </div>
+            <div className="flex items-center text-gray-400 text-sm">
+              <MapPin className="w-4 h-4 mr-2" />
               <span>{location}</span>
             </div>
-            <div className="flex items-center gap-1">
-              <Clock className="w-4 h-4" />
+            <div className="flex items-center text-gray-400 text-sm">
+              <Clock className="w-4 h-4 mr-2" />
               <span>{posted}</span>
             </div>
           </div>
 
-          <div className="flex items-center gap-4">
-            <span className="font-semibold text-lg text-vibrant-green">{salary}</span>
-            <Badge variant="secondary">{type}</Badge>
-          </div>
-
-          <div className="flex flex-wrap gap-2">
-            {tags.map((tag) => (
-              <Badge key={tag} variant="outline" className="text-xs">
+          <div className="flex flex-wrap gap-2 mb-4">
+            {tags.map((tag, index) => (
+              <Badge key={index} variant="secondary" className="bg-[#404EED] text-white text-xs">
                 {tag}
               </Badge>
             ))}
           </div>
-        </div>
 
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <Users className="w-4 h-4" />
-            <span>{applicants} applied</span>
-          </div>
-          {interviewAvailable && (
-            <div className="flex items-center gap-1 text-sm text-vibrant-green">
-              <TrendingUp className="w-4 h-4" />
-              <span>Interview available</span>
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center text-gray-400 text-sm">
+              <Users className="w-4 h-4 mr-1" />
+              <span>{applicants} applicants</span>
             </div>
-          )}
-        </div>
+            {interviewAvailable && (
+              <Badge className="bg-green-600 text-white">
+                <Video className="w-3 h-3 mr-1" />
+                Interview Ready
+              </Badge>
+            )}
+          </div>
 
-        <div className="flex gap-3">
-          <Button 
-            variant="outline" 
-            size="sm" 
-            className="flex-1"
-          >
-            View Details
-          </Button>
-          <Button 
-            size="sm" 
-            className="flex-1 bg-electric-blue hover:bg-electric-blue/90 text-white font-semibold"
-            disabled={!interviewAvailable}
-          >
-            {interviewAvailable ? '🎤 Interview Now' : 'Interview Unavailable'}
-          </Button>
-        </div>
-      </CardContent>
-    </Card>
+          <div className="flex space-x-2">
+            <Button 
+              className="flex-1 bg-[#404EED] hover:bg-[#404EED]/90 text-white"
+              onClick={() => setShowDetails(true)}
+            >
+              View Details
+            </Button>
+            {interviewAvailable && (
+              <Button variant="outline" className="border-gray-600 text-gray-300 hover:bg-gray-700">
+                <Video className="w-4 h-4" />
+              </Button>
+            )}
+          </div>
+        </CardContent>
+      </Card>
+
+      <JobDetailsModal 
+        isOpen={showDetails}
+        onClose={() => setShowDetails(false)}
+        job={jobData}
+      />
+    </>
   );
 };
 
