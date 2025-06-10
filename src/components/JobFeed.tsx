@@ -1,10 +1,9 @@
-
 import { useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import JobCard from './JobCard';
-import { Search, Filter, MapPin, Clock } from 'lucide-react';
+import { Search, Hash, Users } from 'lucide-react';
 
 const JobFeed = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -107,92 +106,116 @@ const JobFeed = () => {
   });
 
   return (
-    <div className="min-h-screen bg-light-gray/30 py-8">
-      <div className="max-w-7xl mx-auto px-4">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-charcoal mb-4">
-            Live Job Opportunities
-          </h2>
-          <p className="text-muted-foreground text-lg">
-            Find your next role and interview instantly
-          </p>
-        </div>
+    <div className="min-h-screen bg-[#36393f]">
+      {/* Discord-style curved section divider */}
+      <div className="relative">
+        <svg className="w-full h-24 fill-[#404EED]" viewBox="0 0 1440 120" preserveAspectRatio="none">
+          <path d="M0,0 C480,120 960,120 1440,0 L1440,0 L0,0 Z"></path>
+        </svg>
+      </div>
 
-        {/* Search and Filters */}
-        <div className="mb-8 space-y-4">
-          <div className="relative max-w-2xl mx-auto">
-            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
-            <Input
-              placeholder="Search jobs, companies, or skills..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-12 pr-4 py-6 text-lg rounded-2xl border-0 shadow-lg focus:ring-2 focus:ring-electric-blue"
-            />
+      <div className="px-6 pb-24">
+        <div className="max-w-7xl mx-auto">
+          {/* Discord-style section header */}
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-6xl font-black text-white mb-6">
+              WHERE HANGING OUT IS EASY
+            </h2>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              Browse jobs, chat with employers, and find your perfect match. 
+              Make job hunting less of a chore and more like hanging out with friends.
+            </p>
           </div>
 
-          {/* Filter Tabs */}
-          <div className="flex flex-wrap justify-center gap-2">
-            {filters.map((filter) => (
-              <Button
-                key={filter.key}
-                variant={selectedFilter === filter.key ? 'default' : 'outline'}
-                size="sm"
-                onClick={() => setSelectedFilter(filter.key)}
-                className={`rounded-full ${
-                  selectedFilter === filter.key 
-                    ? 'bg-electric-blue text-white' 
-                    : 'hover:bg-electric-blue/10'
-                }`}
-              >
-                {filter.label}
-                <Badge 
-                  variant="secondary" 
-                  className="ml-2 text-xs"
-                >
-                  {filter.count}
-                </Badge>
-              </Button>
+          {/* Discord-style feature cards */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-24">
+            <div>
+              <h3 className="text-3xl md:text-5xl font-black text-white mb-6">
+                Create an invite-only place where you belong
+              </h3>
+              <p className="text-lg text-gray-300 leading-relaxed">
+                Job servers are organized into topic-based channels where you can collaborate, 
+                share ideas, and just talk about your career without clogging up your inbox.
+              </p>
+            </div>
+            <div className="bg-[#2f3136] rounded-lg p-8 border border-gray-700">
+              <div className="space-y-4">
+                <div className="flex items-center space-x-3">
+                  <Hash className="w-5 h-5 text-gray-400" />
+                  <span className="text-gray-300">general-jobs</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <Hash className="w-5 h-5 text-gray-400" />
+                  <span className="text-gray-300">tech-opportunities</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <Hash className="w-5 h-5 text-gray-400" />
+                  <span className="text-gray-300">finance-roles</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <Users className="w-5 h-5 text-green-400" />
+                  <span className="text-gray-300">Interview Room</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Search Section */}
+          <div className="bg-[#2f3136] rounded-lg p-8 mb-8 border border-gray-700">
+            <div className="max-w-2xl mx-auto">
+              <div className="relative mb-6">
+                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                <Input
+                  placeholder="Search for your dream job..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-12 pr-4 py-6 text-lg bg-[#40444b] border-gray-600 text-white placeholder-gray-400 focus:border-[#404EED] rounded-lg"
+                />
+              </div>
+
+              <div className="flex flex-wrap justify-center gap-2">
+                {filters.map((filter) => (
+                  <Button
+                    key={filter.key}
+                    variant={selectedFilter === filter.key ? 'default' : 'outline'}
+                    size="sm"
+                    onClick={() => setSelectedFilter(filter.key)}
+                    className={`rounded-lg ${
+                      selectedFilter === filter.key 
+                        ? 'bg-[#404EED] text-white hover:bg-[#404EED]/90' 
+                        : 'border-gray-600 text-gray-300 hover:bg-gray-700 bg-transparent'
+                    }`}
+                  >
+                    {filter.label}
+                    <Badge 
+                      variant="secondary" 
+                      className="ml-2 text-xs bg-gray-600 text-gray-200"
+                    >
+                      {filter.count}
+                    </Badge>
+                  </Button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Job Results */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredJobs.map((job, index) => (
+              <div key={job.id} className="animate-slide-up" style={{ animationDelay: `${index * 0.1}s` }}>
+                <JobCard {...job} />
+              </div>
             ))}
           </div>
-        </div>
 
-        {/* Live Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-          <div className="bg-white rounded-xl p-4 text-center shadow-lg">
-            <div className="text-2xl font-bold text-electric-blue">247</div>
-            <div className="text-sm text-muted-foreground">Active Jobs</div>
-          </div>
-          <div className="bg-white rounded-xl p-4 text-center shadow-lg">
-            <div className="text-2xl font-bold text-vibrant-green">1,542</div>
-            <div className="text-sm text-muted-foreground">Interviews Today</div>
-          </div>
-          <div className="bg-white rounded-xl p-4 text-center shadow-lg">
-            <div className="text-2xl font-bold text-warning-orange">89</div>
-            <div className="text-sm text-muted-foreground">Hired This Week</div>
-          </div>
-          <div className="bg-white rounded-xl p-4 text-center shadow-lg">
-            <div className="text-2xl font-bold text-charcoal">98%</div>
-            <div className="text-sm text-muted-foreground">Success Rate</div>
-          </div>
-        </div>
-
-        {/* Job Results */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredJobs.map((job, index) => (
-            <div key={job.id} className="animate-slide-up" style={{ animationDelay: `${index * 0.1}s` }}>
-              <JobCard {...job} />
+          {filteredJobs.length === 0 && (
+            <div className="text-center py-16">
+              <div className="text-4xl mb-4">🔍</div>
+              <h3 className="text-xl font-semibold text-white mb-2">No jobs found</h3>
+              <p className="text-gray-400">Try adjusting your search or filters</p>
             </div>
-          ))}
+          )}
         </div>
-
-        {filteredJobs.length === 0 && (
-          <div className="text-center py-16">
-            <div className="text-4xl mb-4">🔍</div>
-            <h3 className="text-xl font-semibold text-charcoal mb-2">No jobs found</h3>
-            <p className="text-muted-foreground">Try adjusting your search or filters</p>
-          </div>
-        )}
       </div>
     </div>
   );
