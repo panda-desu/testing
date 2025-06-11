@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Download, Users, Mic, Headphones, Bot, Gamepad2, Building2, Trophy, Zap } from 'lucide-react';
@@ -28,6 +27,7 @@ const HeroSection = () => {
           <a href="#companies" className="text-white hover:underline font-medium">Companies</a>
           <a href="#games" className="text-white hover:underline font-medium">Games</a>
           <a href="/channels" className="text-white hover:underline font-medium">Channels</a>
+          <a href="/co-founder-matching" className="text-white hover:underline font-medium">Co-Founder Matching</a>
         </div>
 
         <div className="flex items-center space-x-4">
