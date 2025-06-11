@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -264,11 +263,10 @@ const CoFounderMatching = () => {
                       <SelectValue placeholder="Location" />
                     </SelectTrigger>
                     <SelectContent className="bg-[#2f3136] border-gray-700">
-                      <SelectItem value="">All Locations</SelectItem>
-                      <SelectItem value="San Francisco">San Francisco</SelectItem>
-                      <SelectItem value="New York">New York</SelectItem>
-                      <SelectItem value="Austin">Austin</SelectItem>
-                      <SelectItem value="Remote">Remote</SelectItem>
+                      <SelectItem value="san-francisco">San Francisco</SelectItem>
+                      <SelectItem value="new-york">New York</SelectItem>
+                      <SelectItem value="austin">Austin</SelectItem>
+                      <SelectItem value="remote">Remote</SelectItem>
                     </SelectContent>
                   </Select>
                   <Input
@@ -282,12 +280,11 @@ const CoFounderMatching = () => {
                       <SelectValue placeholder="Industry" />
                     </SelectTrigger>
                     <SelectContent className="bg-[#2f3136] border-gray-700">
-                      <SelectItem value="">All Industries</SelectItem>
-                      <SelectItem value="AI/ML">AI/ML</SelectItem>
-                      <SelectItem value="Fintech">Fintech</SelectItem>
-                      <SelectItem value="HealthTech">HealthTech</SelectItem>
-                      <SelectItem value="Web3">Web3</SelectItem>
-                      <SelectItem value="E-commerce">E-commerce</SelectItem>
+                      <SelectItem value="ai-ml">AI/ML</SelectItem>
+                      <SelectItem value="fintech">Fintech</SelectItem>
+                      <SelectItem value="healthtech">HealthTech</SelectItem>
+                      <SelectItem value="web3">Web3</SelectItem>
+                      <SelectItem value="e-commerce">E-commerce</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -487,3 +484,5 @@ const CoFounderMatching = () => {
 };
 
 export default CoFounderMatching;
+
+</edits_to_apply>
