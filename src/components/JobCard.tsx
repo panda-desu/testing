@@ -1,10 +1,9 @@
-
-import { useState } from 'react';
-import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { MapPin, DollarSign, Clock, Users, Zap, Video } from 'lucide-react';
-import JobDetailsModal from './JobDetailsModal';
+import { useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { MapPin, DollarSign, Clock, Users, Zap, Video } from "lucide-react";
+import JobDetailsModal from "./JobDetailsModal";
 
 interface JobCardProps {
   id: string;
@@ -20,14 +19,32 @@ interface JobCardProps {
   urgent?: boolean;
 }
 
-const JobCard = ({ 
-  id, title, company, salary, location, type, tags, 
-  interviewAvailable, applicants, posted, urgent 
+const JobCard = ({
+  id,
+  title,
+  company,
+  salary,
+  location,
+  type,
+  tags,
+  interviewAvailable,
+  applicants,
+  posted,
+  urgent,
 }: JobCardProps) => {
   const [showDetails, setShowDetails] = useState(false);
 
   const jobData = {
-    id, title, company, salary, location, type, tags, applicants, posted, urgent
+    id,
+    title,
+    company,
+    salary,
+    location,
+    type,
+    tags,
+    applicants,
+    posted,
+    urgent,
   };
 
   return (
@@ -40,7 +57,7 @@ const JobCard = ({
               ЯАРАЛТАЙ
             </Badge>
           )}
-          
+
           <div className="mb-4">
             <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-[#404EED] transition-colors">
               {title}
@@ -65,7 +82,11 @@ const JobCard = ({
 
           <div className="flex flex-wrap gap-2 mb-4">
             {tags.map((tag, index) => (
-              <Badge key={index} variant="secondary" className="bg-[#404EED] text-white text-xs">
+              <Badge
+                key={index}
+                variant="secondary"
+                className="bg-[#404EED] text-white text-xs"
+              >
                 {tag}
               </Badge>
             ))}
@@ -84,36 +105,23 @@ const JobCard = ({
             )}
           </div>
 
-          <div className="flex flex-col space-y-2">
-            <Button 
-              className="w-full bg-[#404EED] hover:bg-[#404EED]/90 text-white py-4 text-lg font-semibold"
-            >
-              ӨРГӨДӨЛ ГАРГАХ
+          <div className="flex items-center space-x-2 justify-between">
+            <Button className=" bg-[#404EED] hover:bg-[#404EED]/90 text-white text-md w-[49%]">
+              Өргөдөл гаргах
             </Button>
-            <div className="flex space-x-2">
-              <Button 
-                variant="outline" 
-                size="sm"
-                className="flex-1 border-gray-600 text-gray-300 hover:bg-gray-700 text-xs"
-                onClick={() => setShowDetails(true)}
-              >
-                Дэлгэрэнгүй
-              </Button>
-              {interviewAvailable && (
-                <Button 
-                  variant="outline" 
-                  size="sm"
-                  className="border-gray-600 text-gray-300 hover:bg-gray-700"
-                >
-                  <Video className="w-4 h-4" />
-                </Button>
-              )}
-            </div>
+
+            <Button
+              variant="outline"
+              className=" border-gray-600 text-gray-900 hover:bg-gray-700 text-md w-[49%]"
+              onClick={() => setShowDetails(true)}
+            >
+              Дэлгэрэнгүй
+            </Button>
           </div>
         </CardContent>
       </Card>
 
-      <JobDetailsModal 
+      <JobDetailsModal
         isOpen={showDetails}
         onClose={() => setShowDetails(false)}
         job={jobData}
