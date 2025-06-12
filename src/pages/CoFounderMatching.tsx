@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -484,5 +485,3 @@ const CoFounderMatching = () => {
 };
 
 export default CoFounderMatching;
-
-</edits_to_apply>
