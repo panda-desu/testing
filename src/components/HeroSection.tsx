@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Download, Users, Mic, Headphones, Bot, Gamepad2, Building2, Trophy, Zap } from 'lucide-react';
@@ -19,15 +20,15 @@ const HeroSection = () => {
       <nav className="relative z-10 flex items-center justify-between px-6 py-4 max-w-7xl mx-auto">
         <div className="flex items-center space-x-2">
           <Bot className="w-8 h-8 text-white" />
-          <span className="text-white font-bold text-xl">Jobz</span>
+          <span className="text-white font-bold text-xl">Jobz.mn</span>
         </div>
         
         <div className="hidden md:flex items-center space-x-8">
-          <a href="#jobz" className="text-white hover:underline font-medium">Jobz</a>
-          <a href="#companies" className="text-white hover:underline font-medium">Companies</a>
-          <a href="#games" className="text-white hover:underline font-medium">Games</a>
-          <a href="/channels" className="text-white hover:underline font-medium">Channels</a>
-          <a href="/co-founder-matching" className="text-white hover:underline font-medium">Co-Founder Matching</a>
+          <a href="#jobz" className="text-white hover:underline font-medium">Ажлын байр</a>
+          <a href="#companies" className="text-white hover:underline font-medium">Компаниуд</a>
+          <a href="#games" className="text-white hover:underline font-medium">Тоглоомууд</a>
+          <a href="/channels" className="text-white hover:underline font-medium">Сувгууд</a>
+          <a href="/co-founder-matching" className="text-white hover:underline font-medium">Хамтрагч олох</a>
         </div>
 
         <div className="flex items-center space-x-4">
@@ -36,142 +37,46 @@ const HeroSection = () => {
             className="border-white text-white hover:bg-white hover:text-black rounded-full px-4 py-2 text-sm font-medium bg-transparent"
             onClick={() => navigate('/account')}
           >
-            My Account
+            Миний бүртгэл
           </Button>
           <Button 
             className="bg-white text-black hover:bg-gray-100 rounded-full px-4 py-2 text-sm font-medium"
             onClick={() => navigate('/ai-matching')}
           >
-            Try AI Matching
+            AI тохирол туршиж үзэх
           </Button>
         </div>
       </nav>
 
-      {/* Main Content */}
+      {/* Main Content - Simplified */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 pt-16 pb-24">
         <div className="text-center">
           <h1 className="text-5xl md:text-7xl font-black text-white mb-6 leading-tight">
-            IMAGINE A PLACE...
+            АЖЛЫН БАЙР ОЛОХ ХАМГИЙН ХЯЛБАР АРГА
           </h1>
           
           <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-4xl mx-auto leading-relaxed">
-            ...where you can find your dream job and interview instantly. Where getting hired 
-            doesn't require endless waiting. A place that makes job hunting actually work.
+            Монгол дахь хамгийн хурдан ажлын байр олох платформ. AI ашиглан таны мэргэжлийг олж өгнө.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
             <Button 
               size="lg" 
               className="bg-white text-black hover:bg-gray-100 font-semibold px-8 py-4 text-lg rounded-full min-w-[200px]"
+              onClick={() => document.getElementById('job-section')?.scrollIntoView({ behavior: 'smooth' })}
             >
               <Download className="w-5 h-5 mr-2" />
-              Download for Windows
+              Ажлын байр үзэх
             </Button>
             
             <Button 
               size="lg" 
               variant="outline" 
               className="border-white text-white hover:bg-white hover:text-black font-semibold px-8 py-4 text-lg rounded-full min-w-[200px] bg-transparent"
+              onClick={() => navigate('/ai-matching')}
             >
-              Open Jobz in your browser
+              AI тохирол олох
             </Button>
-          </div>
-        </div>
-
-        {/* Three Main Sections */}
-        <div className="relative max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-            {/* Jobz Section */}
-            <div id="jobz" className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 border border-white/20 hover:bg-white/15 transition-all cursor-pointer group">
-              <div className="text-center">
-                <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                  <Bot className="w-10 h-10 text-white" />
-                </div>
-                <h3 className="text-white font-bold text-2xl mb-3">Jobz</h3>
-                <p className="text-white/80 text-sm mb-4">AI-powered job matching that actually works. No more endless scrolling through irrelevant positions.</p>
-                <div className="space-y-2">
-                  <div className="flex items-center justify-center text-white/70 text-xs">
-                    <Zap className="w-4 h-4 mr-1" />
-                    <span>Instant AI Matching</span>
-                  </div>
-                  <div className="flex items-center justify-center text-white/70 text-xs">
-                    <Users className="w-4 h-4 mr-1" />
-                    <span>60-Second Applications</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Companies Section */}
-            <div id="companies" className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 border border-white/20 hover:bg-white/15 transition-all cursor-pointer group">
-              <div className="text-center">
-                <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                  <Building2 className="w-10 h-10 text-white" />
-                </div>
-                <h3 className="text-white font-bold text-2xl mb-3">Companies</h3>
-                <p className="text-white/80 text-sm mb-4">Connect directly with hiring managers. Skip HR, talk to decision makers immediately.</p>
-                <div className="space-y-2">
-                  <div className="flex items-center justify-center text-white/70 text-xs">
-                    <Mic className="w-4 h-4 mr-1" />
-                    <span>Direct Communication</span>
-                  </div>
-                  <div className="flex items-center justify-center text-white/70 text-xs">
-                    <Headphones className="w-4 h-4 mr-1" />
-                    <span>Instant Interviews</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Games Section */}
-            <div id="games" className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 border border-white/20 hover:bg-white/15 transition-all cursor-pointer group" onClick={() => navigate('/games')}>
-              <div className="text-center">
-                <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                  <Gamepad2 className="w-10 h-10 text-white" />
-                </div>
-                <h3 className="text-white font-bold text-2xl mb-3">Games</h3>
-                <p className="text-white/80 text-sm mb-4">Play psychometric games to showcase your skills. Climb leaderboards, unlock exclusive jobs.</p>
-                <div className="space-y-2">
-                  <div className="flex items-center justify-center text-white/70 text-xs">
-                    <Trophy className="w-4 h-4 mr-1" />
-                    <span>Skill Challenges</span>
-                  </div>
-                  <div className="flex items-center justify-center text-white/70 text-xs">
-                    <Zap className="w-4 h-4 mr-1" />
-                    <span>Leaderboards</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Additional Feature Showcase */}
-          <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 border border-white/20">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="text-center">
-                <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Users className="w-10 h-10 text-white" />
-                </div>
-                <h3 className="text-white font-semibold text-lg mb-2">Join Communities</h3>
-                <p className="text-white/80 text-sm">Network in Discord-style channels with other job seekers and employers</p>
-              </div>
-              
-              <div className="text-center">
-                <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Mic className="w-10 h-10 text-white" />
-                </div>
-                <h3 className="text-white font-semibold text-lg mb-2">Instant Interviews</h3>
-                <p className="text-white/80 text-sm">Talk to employers immediately, no waiting required</p>
-              </div>
-              
-              <div className="text-center">
-                <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Bot className="w-10 h-10 text-white" />
-                </div>
-                <h3 className="text-white font-semibold text-lg mb-2">AI Matching</h3>
-                <p className="text-white/80 text-sm">Let our AI find the perfect opportunities for you</p>
-              </div>
-            </div>
           </div>
         </div>
       </div>

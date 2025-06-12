@@ -37,7 +37,7 @@ const JobCard = ({
           {urgent && (
             <Badge className="bg-red-500 text-white mb-3 animate-pulse">
               <Zap className="w-3 h-3 mr-1" />
-              URGENT
+              ЯАРАЛТАЙ
             </Badge>
           )}
           
@@ -74,28 +74,41 @@ const JobCard = ({
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center text-gray-400 text-sm">
               <Users className="w-4 h-4 mr-1" />
-              <span>{applicants} applicants</span>
+              <span>{applicants} өргөдөл</span>
             </div>
             {interviewAvailable && (
               <Badge className="bg-green-600 text-white">
                 <Video className="w-3 h-3 mr-1" />
-                Interview Ready
+                Ярилцлага бэлэн
               </Badge>
             )}
           </div>
 
-          <div className="flex space-x-2">
+          <div className="flex flex-col space-y-2">
             <Button 
-              className="flex-1 bg-[#404EED] hover:bg-[#404EED]/90 text-white"
-              onClick={() => setShowDetails(true)}
+              className="w-full bg-[#404EED] hover:bg-[#404EED]/90 text-white py-4 text-lg font-semibold"
             >
-              View Details
+              ӨРГӨДӨЛ ГАРГАХ
             </Button>
-            {interviewAvailable && (
-              <Button variant="outline" className="border-gray-600 text-gray-300 hover:bg-gray-700">
-                <Video className="w-4 h-4" />
+            <div className="flex space-x-2">
+              <Button 
+                variant="outline" 
+                size="sm"
+                className="flex-1 border-gray-600 text-gray-300 hover:bg-gray-700 text-xs"
+                onClick={() => setShowDetails(true)}
+              >
+                Дэлгэрэнгүй
               </Button>
-            )}
+              {interviewAvailable && (
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  className="border-gray-600 text-gray-300 hover:bg-gray-700"
+                >
+                  <Video className="w-4 h-4" />
+                </Button>
+              )}
+            </div>
           </div>
         </CardContent>
       </Card>

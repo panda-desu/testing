@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -37,36 +36,36 @@ const JobDetailsModal = ({ isOpen, onClose, job }: JobDetailsModalProps) => {
   const genZFeatures = [
     {
       icon: <Video className="w-5 h-5" />,
-      title: 'TikTok-Style Job Tours',
-      description: 'Watch 60-second office tours and day-in-the-life videos',
-      engagement: '2.3M views'
+      title: 'TikTok маягийн ажлын газар танилцуулга',
+      description: '60 секундийн оффисийн аялал, өдөр тутмын амьдралын видео үзээрэй',
+      engagement: '2.3М үзэлт'
     },
     {
       icon: <Gamepad2 className="w-5 h-5" />,
-      title: 'Skill Challenges',
-      description: 'Complete mini-games to unlock exclusive job opportunities',
-      engagement: 'Level 7 unlocked'
+      title: 'Ур чадварын сорилууд',
+      description: 'Мини тоглоомууд тоглож эксклюзив ажлын боломжуудыг нээгээрэй',
+      engagement: '7-р түвшин нээгдсэн'
     },
     {
       icon: <Coffee className="w-5 h-5" />,
-      title: 'Vibe Check™',
-      description: 'Real employee reviews on work-life balance & company culture',
-      engagement: '4.8/5 vibes'
+      title: 'Vibe шалгалт™',
+      description: 'Ажил-амьдралын тэнцвэр, компанийн соёлын талаар бодит ажилчдын үнэлгээ',
+      engagement: '4.8/5 vibe'
     },
     {
       icon: <Sparkles className="w-5 h-5" />,
-      title: 'AI Resume Glow-Up',
-      description: 'Get your resume optimized for this exact role in seconds',
-      engagement: '+87% match rate'
+      title: 'AI-аар анкет сайжруулах',
+      description: 'Яг энэ ажлын байранд зориулж анкетаа секундын дотор сайжруулаарай',
+      engagement: '+87% тохирол'
     }
   ];
 
   const companyVibes = [
-    { label: 'Remote Flexibility', score: 95, emoji: '🏠' },
-    { label: 'Work-Life Balance', score: 88, emoji: '⚖️' },
-    { label: 'Growth Opportunities', score: 92, emoji: '📈' },
-    { label: 'Team Energy', score: 85, emoji: '⚡' },
-    { label: 'Learning Budget', score: 90, emoji: '🧠' }
+    { label: 'Алсаас ажиллах уян хатан байдал', score: 95, emoji: '🏠' },
+    { label: 'Ажил-амьдралын тэнцвэр', score: 88, emoji: '⚖️' },
+    { label: 'Хөгжлийн боломжууд', score: 92, emoji: '📈' },
+    { label: 'Багийн эрч хүч', score: 85, emoji: '⚡' },
+    { label: 'Сургалтын төсөв', score: 90, emoji: '🧠' }
   ];
 
   return (
@@ -117,16 +116,16 @@ const JobDetailsModal = ({ isOpen, onClose, job }: JobDetailsModalProps) => {
         <Tabs value={activeTab} onValueChange={setActiveTab} className="mt-6">
           <TabsList className="grid w-full grid-cols-4 bg-[#40444b]">
             <TabsTrigger value="overview" className="text-white data-[state=active]:bg-[#404EED]">
-              Overview
+              Ерөнхий
             </TabsTrigger>
             <TabsTrigger value="vibes" className="text-white data-[state=active]:bg-[#404EED]">
-              Vibes ✨
+              Vibe ✨
             </TabsTrigger>
             <TabsTrigger value="perks" className="text-white data-[state=active]:bg-[#404EED]">
-              Perks 🎁
+              혜택 🎁
             </TabsTrigger>
             <TabsTrigger value="apply" className="text-white data-[state=active]:bg-[#404EED]">
-              Apply 🚀
+              Өргөдөл 🚀
             </TabsTrigger>
           </TabsList>
 
@@ -137,24 +136,24 @@ const JobDetailsModal = ({ isOpen, onClose, job }: JobDetailsModalProps) => {
                   <CardHeader>
                     <CardTitle className="text-white flex items-center">
                       <Zap className="w-5 h-5 mr-2 text-yellow-400" />
-                      Quick Stats
+                      Хурдан статистик
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-3">
                     <div className="flex justify-between text-gray-300">
-                      <span>Applications</span>
+                      <span>Өргөдлүүд</span>
                       <span className="text-white font-semibold">{job.applicants}</span>
                     </div>
                     <div className="flex justify-between text-gray-300">
-                      <span>Posted</span>
+                      <span>Нийтэлсэн</span>
                       <span className="text-white font-semibold">{job.posted}</span>
                     </div>
                     <div className="flex justify-between text-gray-300">
-                      <span>Job Type</span>
+                      <span>Ажлын төрөл</span>
                       <span className="text-white font-semibold">{job.type}</span>
                     </div>
                     <div className="flex justify-between text-gray-300">
-                      <span>Response Rate</span>
+                      <span>Хариу өгөх хувь</span>
                       <span className="text-green-400 font-semibold">85%</span>
                     </div>
                   </CardContent>
@@ -164,14 +163,14 @@ const JobDetailsModal = ({ isOpen, onClose, job }: JobDetailsModalProps) => {
                   <CardHeader>
                     <CardTitle className="text-white flex items-center">
                       <Trophy className="w-5 h-5 mr-2 text-yellow-400" />
-                      Skills Match
+                      Ур чадварын тохирол
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-3">
                       <div>
                         <div className="flex justify-between text-sm mb-1">
-                          <span className="text-gray-300">Overall Match</span>
+                          <span className="text-gray-300">Нийт тохирол</span>
                           <span className="text-white font-semibold">92%</span>
                         </div>
                         <Progress value={92} className="h-2" />
@@ -193,7 +192,7 @@ const JobDetailsModal = ({ isOpen, onClose, job }: JobDetailsModalProps) => {
                   <CardHeader>
                     <CardTitle className="text-white flex items-center">
                       <Sparkles className="w-5 h-5 mr-2 text-purple-400" />
-                      Gen Z Features
+                      Gen Z онцлогууд
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
@@ -221,7 +220,7 @@ const JobDetailsModal = ({ isOpen, onClose, job }: JobDetailsModalProps) => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <Card className="bg-[#40444b] border-gray-600">
                 <CardHeader>
-                  <CardTitle className="text-white">Company Vibe Check™</CardTitle>
+                  <CardTitle className="text-white">Компанийн Vibe шалгалт™</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   {companyVibes.map((vibe, index) => (
@@ -241,26 +240,26 @@ const JobDetailsModal = ({ isOpen, onClose, job }: JobDetailsModalProps) => {
 
               <Card className="bg-[#40444b] border-gray-600">
                 <CardHeader>
-                  <CardTitle className="text-white">Employee Tea ☕</CardTitle>
+                  <CardTitle className="text-white">Ажилчдын сэтгэгдэл ☕</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="p-3 bg-[#36393f] rounded-lg">
                     <div className="flex items-center space-x-2 mb-2">
-                      <div className="w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center text-xs">A</div>
-                      <span className="text-white font-medium">Anonymous</span>
+                      <div className="w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center text-xs">А</div>
+                      <span className="text-white font-medium">Нэргүй</span>
                       <div className="flex">
                         {[...Array(5)].map((_, i) => (
                           <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                         ))}
                       </div>
                     </div>
-                    <p className="text-gray-300 text-sm">"Best place I've worked! Actually care about mental health and work-life balance. Free snacks are fire too 🔥"</p>
+                    <p className="text-gray-300 text-sm">"Ажилласан хамгийн сайн газар! Сэтгэцийн эрүүл мэнд, ажил-амьдралын тэнцвэрт анхаардаг. Үнэгүй зууш ч гайхалтай 🔥"</p>
                   </div>
                   
                   <div className="p-3 bg-[#36393f] rounded-lg">
                     <div className="flex items-center space-x-2 mb-2">
-                      <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-xs">B</div>
-                      <span className="text-white font-medium">Anonymous</span>
+                      <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-xs">Б</div>
+                      <span className="text-white font-medium">Нэргүй</span>
                       <div className="flex">
                         {[...Array(4)].map((_, i) => (
                           <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
@@ -268,7 +267,7 @@ const JobDetailsModal = ({ isOpen, onClose, job }: JobDetailsModalProps) => {
                         <Star className="w-4 h-4 text-gray-400" />
                       </div>
                     </div>
-                    <p className="text-gray-300 text-sm">"Great learning opportunities but can get intense during crunch time. Management is pretty chill though."</p>
+                    <p className="text-gray-300 text-sm">"Сурах боломж их байгаа ч ачаалал их үед төвөгтэй болдог. Гэхдээ удирдлага нэлээд тайван."</p>
                   </div>
                 </CardContent>
               </Card>
@@ -278,15 +277,15 @@ const JobDetailsModal = ({ isOpen, onClose, job }: JobDetailsModalProps) => {
           <TabsContent value="perks" className="mt-6">
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               {[
-                { icon: '🏠', title: 'Remote-First', desc: 'Work from anywhere' },
-                { icon: '💰', title: 'Crypto Salary', desc: 'Get paid in BTC/ETH' },
-                { icon: '🎮', title: 'Gaming Lounge', desc: 'PS5 & gaming setup' },
-                { icon: '☕', title: 'Unlimited Coffee', desc: 'Premium coffee bar' },
-                { icon: '📚', title: 'Learning Budget', desc: '$2000/year courses' },
-                { icon: '🌴', title: 'Unlimited PTO', desc: 'Take time when needed' },
-                { icon: '🍕', title: 'Free Meals', desc: 'Lunch & dinner provided' },
-                { icon: '💪', title: 'Gym Membership', desc: 'Premium fitness access' },
-                { icon: '🎵', title: 'Spotify Premium', desc: 'Music while working' }
+                { icon: '🏠', title: 'Алсаас ажиллах', desc: 'Хаанаас ч ажилла' },
+                { icon: '💰', title: 'Крипто цалин', desc: 'BTC/ETH-ээр авна' },
+                { icon: '🎮', title: 'Тоглоомын өрөө', desc: 'PS5 & тоглоомын багаж' },
+                { icon: '☕', title: 'Хязгааргүй кофе', desc: 'Премиум кофе бар' },
+                { icon: '📚', title: 'Сургалтын төсөв', desc: 'Жилд $2000 курс' },
+                { icon: '🌴', title: 'Хязгааргүй амралт', desc: 'Хэрэгтэй үед авна' },
+                { icon: '🍕', title: 'Үнэгүй хоол', desc: 'Өдрийн болон оройн хоол' },
+                { icon: '💪', title: 'Спорт залны эрх', desc: 'Премиум фитнессийн хандалт' },
+                { icon: '🎵', title: 'Spotify Premium', desc: 'Ажиллаж байхдаа хөгжим' }
               ].map((perk, index) => (
                 <Card key={index} className="bg-[#40444b] border-gray-600 hover:bg-[#42464d] transition-colors">
                   <CardContent className="p-4 text-center">
@@ -302,29 +301,29 @@ const JobDetailsModal = ({ isOpen, onClose, job }: JobDetailsModalProps) => {
           <TabsContent value="apply" className="mt-6">
             <div className="text-center space-y-6">
               <div>
-                <h3 className="text-2xl font-bold text-white mb-2">Ready to Apply? 🚀</h3>
-                <p className="text-gray-300">Skip the boring forms - apply in 60 seconds</p>
+                <h3 className="text-2xl font-bold text-white mb-2">Өргөдөл гаргахад бэлэн үү? 🚀</h3>
+                <p className="text-gray-300">Уйтгартай маягтыг алгасаад 60 секундэд өргөдөл гаргаарай</p>
               </div>
               
               <div className="space-y-4">
                 <Button className="w-full bg-[#404EED] hover:bg-[#404EED]/90 text-white font-semibold py-6 text-lg">
                   <Video className="w-5 h-5 mr-2" />
-                  Apply with Video (30 sec max)
+                  Видеогоор өргөдөл гаргах (хамгийн ихдээ 30 сек)
                 </Button>
                 
                 <Button variant="outline" className="w-full border-gray-600 text-white hover:bg-gray-700 py-6 text-lg">
                   <Calendar className="w-5 h-5 mr-2" />
-                  Schedule AI Interview
+                  AI ярилцлага товлох
                 </Button>
                 
                 <Button variant="ghost" className="w-full text-gray-400 hover:text-white py-6 text-lg">
                   <MessageCircle className="w-5 h-5 mr-2" />
-                  Chat with Current Employee
+                  Одоогийн ажилчинтай чатлах
                 </Button>
               </div>
 
               <div className="text-sm text-gray-400">
-                <p>🔥 Hot tip: Companies respond 3x faster to video applications!</p>
+                <p>🔥 Зөвлөгөө: Компаниуд видео өргөдөлд 3 дахин хурдан хариулдаг!</p>
               </div>
             </div>
           </TabsContent>
