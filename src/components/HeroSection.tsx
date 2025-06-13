@@ -33,30 +33,36 @@ const HeroSection = () => {
         </div>
 
         <div className="hidden md:flex items-center space-x-8">
-          <a href="/jobz" className="text-white hover:underline font-medium">
+          <button
+            onClick={() => navigate("/jobz")}
+            className="text-white hover:underline font-medium"
+          >
             Ажлын байр
-          </a>
-          <a
-            href="/companies"
+          </button>
+          <button
+            onClick={() => navigate("/companies")}
             className="text-white hover:underline font-medium"
           >
             Компаниуд
-          </a>
-          <a href="/games" className="text-white hover:underline font-medium">
+          </button>
+          <button
+            onClick={() => navigate("/games")}
+            className="text-white hover:underline font-medium"
+          >
             Тоглоомууд
-          </a>
-          <a
-            href="/channels"
+          </button>
+          <button
+            onClick={() => navigate("/channels")}
             className="text-white hover:underline font-medium"
           >
             Сувгууд
-          </a>
-          <a
-            href="/co-founder-matching"
+          </button>
+          <button
+            onClick={() => navigate("/co-founder-matching")}
             className="text-white hover:underline font-medium"
           >
             Хамтрагч олох
-          </a>
+          </button>
         </div>
 
         <div className="flex items-center space-x-4">
