@@ -34,13 +34,13 @@ const HeroSection = () => {
 
         <div className="hidden md:flex items-center space-x-8">
           <button
-            onClick={() => navigate("/jobz")}
+            // onClick={() => navigate("/jobz")}
             className="text-white hover:underline font-medium"
           >
             Ажлын байр
           </button>
           <button
-            onClick={() => navigate("/companies")}
+            // onClick={() => navigate("/companies")}
             className="text-white hover:underline font-medium"
           >
             Компаниуд
